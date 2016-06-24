@@ -20366,47 +20366,139 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
+	__webpack_require__(169);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	/*INPUT FIELDS*/
+	var Form = _react2.default.createClass({
+		displayName: 'Form',
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+		getInitialState: function getInitialState() {
+			return { title: '', text: '' };
+		},
+		handleTitleChange: function handleTitleChange(e) {
+			this.setState({ title: e.target.value });
+		},
+		handleTextChange: function handleTextChange(e) {
+			this.setState({ text: e.target.value });
+		},
+		handleSubmit: function handleSubmit(e) {
+			e.preventDefault();
+			//alert(this.state.title);
+			this.props.onItemSubmit({ title: this.state.title, text: this.state.text });
+			this.setState({ title: '', text: '' });
+		},
+		render: function render() {
+			return _react2.default.createElement(
+				'form',
+				{ onSubmit: this.handleSubmit },
+				'Title:',
+				_react2.default.createElement('br', null),
+				_react2.default.createElement('input', { type: 'text', name: 'title', value: this.state.title, onChange: this.handleTitleChange }),
+				_react2.default.createElement('br', null),
+				'Text:',
+				_react2.default.createElement('br', null),
+				_react2.default.createElement('input', { type: 'text', name: 'text', value: this.state.text, onChange: this.handleTextChange }),
+				_react2.default.createElement('br', null),
+				_react2.default.createElement('input', { type: 'submit', value: 'Post' })
+			);
+		}
+	});
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	/*ITEM TEMPLATE*/
+	var Item = _react2.default.createClass({
+		displayName: 'Item',
+		handleDelete: function handleDelete() {
+			this.props.onDelete(this.props.id);
+		},
 
-	var App = function (_React$Component) {
-	  _inherits(App, _React$Component);
+		render: function render() {
+			return _react2.default.createElement(
+				'li',
+				{ className: 'listItem' },
+				_react2.default.createElement(
+					'h2',
+					{ className: 'listTitle' },
+					this.props.title
+				),
+				_react2.default.createElement(
+					'div',
+					null,
+					this.props.text
+				),
+				_react2.default.createElement(
+					'button',
+					{ onClick: this.handleDelete },
+					'delete'
+				)
+			);
+		}
+	});
 
-	  function App() {
-	    _classCallCheck(this, App);
+	/*LIST OF ITEMS
+	 * this component is the renders the list
+	 * parent: App
+	 * Child: Item
+	 * Receives state from parent, maps to child, passes functions to delete as prop
+	 */
+	var List = _react2.default.createClass({
+		displayName: 'List',
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
-	  }
+		render: function render() {
+			var deleteMe = this.props.handleDelete;
+			var listItems = this.props.data.map(function (item, i) {
+				return _react2.default.createElement(Item, { title: item.title, id: i, text: item.text, onDelete: deleteMe });
+			});
+			return _react2.default.createElement(
+				'ul',
+				{ className: 'col-md-4 list-group' },
+				listItems
+			);
+		}
+	});
 
-	  _createClass(App, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        'Hey there'
-	      );
-	    }
-	  }]);
+	/*PARENT CLASS TO PUT THEM ALL TOGETHER*/
+	var App = _react2.default.createClass({
+		displayName: 'App',
 
-	  return App;
-	}(_react2.default.Component);
+		handleDelete: function handleDelete(itemIdx) {
+			//alert(itemIdx);
+			var deleteThis = this.state.data.splice(itemIdx, 1);
+			this.setState({ data: this.state.data });
+		},
+		getInitialState: function getInitialState() {
+			return { data: [{ id: 1, title: "List Item 1", text: "this is a list item" }, { id: 2, title: "List Item 2", text: "this is another list item" }] };
+		},
+		handleSubmit: function handleSubmit(item) {
+			//alert(item.text);
+			var newList = this.state.data.concat([{ title: item.title, text: item.text }]);
+			this.setState({ data: newList });
+		},
+		render: function render() {
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(List, { data: this.state.data, handleDelete: this.handleDelete }),
+				_react2.default.createElement(Form, { onItemSubmit: this.handleSubmit })
+			);
+		}
+	});
 
 	exports.default = App;
+
+/***/ },
+/* 169 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
 
 /***/ }
 /******/ ]);

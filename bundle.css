@@ -1,0 +1,11 @@
+html {
+  background-color: #f2f2f2;
+  font-family: Helvetica, Arial, sans-serif;
+}
+#app {
+  background-color: white;
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 20px;
+  text-align: center;
+}
