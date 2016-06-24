@@ -1,9 +1,11 @@
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 const CLIENT_DIR = path.resolve(__dirname, 'client');
 const SERVER_DIR = path.resolve(__dirname, 'server/generated');
 const DIST_DIR = path.resolve(__dirname, 'dist');
 
-const loaders: [{
+const loaders = [{
     test: /\.js$/,
     include: CLIENT_DIR,
     loader: 'babel-loader',
