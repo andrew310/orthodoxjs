@@ -13,7 +13,7 @@ app.set('view engine', 'handlebars');
 app.use(express.static(path.resolve(__dirname, '../dist')));
 
 app.get('/', (req, res) => {
-    res.render('./views/app', {
+    res.render('app', {
       app: ReactDomServer.renderToString(<App />)
     });
 });
