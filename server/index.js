@@ -1,3 +1,4 @@
+import path from 'path';
 import express from 'express';
 import React from 'react';
 import ReactDomServer from 'react-dom/server';
@@ -8,6 +9,8 @@ const app = express();
 
 app.engine('handlebars', handlebars({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
+
+app.use(express.static(path.resolve(__dirname, '../dist')));
 
 app.get('/', (req, res) => {
     res.render('app', {
