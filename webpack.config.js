@@ -25,7 +25,7 @@ module.exports = [{
   context: CLIENT_DIR,
   entry: './index.js',
   output: {
-    path: __dirname,
+    path: DIST_DIR,
     filename: 'bundle.js'
   },
   module: {
