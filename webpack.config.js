@@ -1,67 +1,31 @@
+const webpack = require('webpack');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const buildPath = path.resolve(__dirname, 'www');
+const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
-const CLIENT_DIR = path.resolve(__dirname, 'client');
-const SERVER_DIR = path.resolve(__dirname, 'server/generated');
-const DIST_DIR = path.resolve(__dirname, 'dist');
-
-const loaders = [{
-    test: /\.js$/,
-    include: CLIENT_DIR,
-    loader: 'babel-loader',
-    query: {
-      presets: ['es2015', 'react']
-    }
-  },
-  {
-    test: /\.less$/,
-    loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader')
-  }];
-
-
-module.exports = [{
-  name: 'client',
-  target: 'web',
-  context: CLIENT_DIR,
-  entry: './index.js',
+module.exports = {
+  entry: [
+    'webpack-hot-middleware/client',
+    path.join(__dirname, './src/app/app.js'),
+  ],
+  devtool: 'eval',
   output: {
-    path: DIST_DIR,
-    filename: 'bundle.js'
-  },
-  module: {
-    loaders: loaders
-  },
-  resolve: {
-    alias: {
-      components: path.resolve(CLIENT_DIR, 'components')
-    }
+    path: buildPath,
+    filename: 'app.js',
+    publicPath: '/'
   },
   plugins: [
-    new ExtractTextPlugin('bundle.css', {allChunks: true})
-  ]
-},
-{
-  name: 'server',
-  target: 'node',
-  context: CLIENT_DIR,
-  entry: {
-    app: 'components/app/index.js'
-  },
-  output: {
-    path: SERVER_DIR,
-    filename: '[name].js',
-    libraryTarget: 'commonjs2'
-  },
-  externals: /^[a-z\-0-9]+$/,
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+  ],
   module: {
-    loaders: loaders
+    loaders: [
+      {
+        test: /\.js$/,
+        loaders: ['babel-loader'],
+        exclude: [nodeModulesPath],
+      },
+    ],
   },
-  resolve: {
-    alias: {
-      components: path.resolve(CLIENT_DIR, 'components')
-    }
-  },
-  plugins: [
-    new ExtractTextPlugin('[name].css')
-  ]
-}];
+};
