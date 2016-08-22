@@ -9,6 +9,8 @@ import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import Signup from './SignupForm'
 import { browserHistory } from 'react-router'
+import SvgIcon from 'material-ui/SvgIcon';
+import Logo from 'material-ui/svg-icons/device/brightness-low';
 
 const styles = {
   container: {
@@ -36,9 +38,9 @@ const muiTheme = getMuiTheme({
     shadowColor: fullBlack
   },
   appBar: {
-      primary1Color: blueGrey50,
+      primary1Color: white,
       textColor: blueGrey600,
-      height: 50,
+      height: 40,
       margin: 0
   },
   ListItem: {
@@ -89,10 +91,20 @@ class Main extends Component {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
-            <AppBar style={{ backgroundColor : muiTheme.appBar.primary1Color}} onTitleTouchTap={this.handleTitleTouchTap} title={<span style={styles.title}>Title</span>}
-                iconElementRight={<div style={{paddingTop : '5px'}}><FlatButton onClick={this.handleLoginButton} label="sign in"/>
-                    <FlatButton onClick={this.handleSignupButton} label="sign up"/></div>
-                }
+            <AppBar style={{ paddingTop: 5, backgroundColor : muiTheme.appBar.primary1Color}} onTitleTouchTap={this.handleTitleTouchTap}
+
+              iconElementLeft={
+                <div>
+                <TextField style={{ position: 'relative', left: '5%'}} hintText="Search"/>
+                </div>
+              }
+
+              iconElementRight={
+                <div style={{paddingTop : '5px'}}>
+                <FlatButton onClick={this.handleLoginButton} label="sign in"/>
+                <FlatButton onClick={this.handleSignupButton} label="sign up"/></div>
+              }
+              
             />
             {props.children}
         </div>

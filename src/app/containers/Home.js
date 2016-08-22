@@ -25,35 +25,24 @@ const styles = {
 const Home = () => {
     return (
         <div>
-        <List style={{display : 'inline-block', minWidth: '70%'}}>
-        <ListItem
-          primaryText="15 React Tutorials"
-          secondaryText="created by Brad"
-          leftIcon={ <div style={{display: 'block', margin: 'auto', left: 15}} ><Up color={redA100} /><Down color={redA100}/></div>}
-          rightAvatar={<Avatar src="https://s3.amazonaws.com/uifaces/faces/twitter/marcogomes/128.jpg" />}
-        />
-        <ListItem
-          primaryText="Flux Systems"
-          secondaryText="created by Jenny"
-          insetChildren={true}
-          leftIcon={ <div style={{display: 'block', margin: 'auto', left: 15}} ><Up color={redA100} /><Down color={redA100}/></div>}
-          rightAvatar={<Avatar src="https://s3.amazonaws.com/uifaces/faces/twitter/esthercrawford/128.jpg" />}
-        />
-        <ListItem
-          primaryText="Reasons why React is better than..."
-          secondaryText="created by Ralph"
-          insetChildren={true}
-          leftIcon={ <div style={{display: 'block', margin: 'auto', left: 15}} ><Up color={redA100} /><Down color={redA100}/></div>}
-          rightAvatar={<Avatar src="http://uifaces.com/jsa" />}
-        />
-        <ListItem
-          primaryText="6 live sites using with MobX"
-          secondaryText="created by mrTweedums1771"
-          insetChildren={true}
-          leftIcon={ <div style={{display: 'block', margin: 'auto', left: 15}} ><Up color={redA100} /><Down color={redA100}/></div>}
-          rightAvatar={<Avatar src="http://uifaces.com/jsa" />}
-        />
-        </List>
+          <ul style={{"list-style-type":"none"}}>
+            <li style={{maxWidth: "450"}}>
+            <Card zDepth={0}>
+              <CardHeader
+                title="Without Avatar"
+                subtitle="Subtitle"
+              />
+            </Card>
+            </li>
+            <li style={{maxWidth: "450"}}>
+            <Card zDepth={0}>
+              <CardHeader
+                title="Without Avatar"
+                subtitle="Subtitle"
+              />
+            </Card>
+            </li>
+          </ul>
         <Card style={{display : 'inline-block', float : 'right', minWidth: 300}}>
             <CardHeader title='Search'>
                 <br />
