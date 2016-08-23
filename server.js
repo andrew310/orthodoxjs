@@ -26,8 +26,6 @@ server.get('/favicon.ico', function(req, res) {
   res.end();
 });
 
-server.use(express.static(path.resolve(__dirname, 'dist')));
-
 if (!process.env.NODE_ENV) {
   const compiler = webpack(config);
 
@@ -44,13 +42,17 @@ if (!process.env.NODE_ENV) {
   }));
   server.use(hot(compiler));
 }
+
+// serve css
 server.use(express.static(path.resolve('./src/www/')));
 //server.get('*', require('./app').serverMiddleware);
+
+// send all requests to index, let reacr router sort them out
 server.get('*', (req, res) => {
   res.sendFile(path.resolve('./src/www/index.html'));
 });
 
-
+// we are live!
 server.listen(port, (err) => {
   if (err) {
     console.error(err);
