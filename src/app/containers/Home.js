@@ -7,7 +7,9 @@ import SideBar from '../components/SideBar';
 const Home = () => {
     return (
         <div >
+
           <SideBar style={{position: 'absolute', top: '20px'}}/>
+
           <div>
             <ul style={{"list-style-type":"none"}}>
               <li style={{maxWidth: "450"}}>
@@ -28,7 +30,6 @@ const Home = () => {
               </li>
             </ul>
           </div>
-
 
         </div>
     );
