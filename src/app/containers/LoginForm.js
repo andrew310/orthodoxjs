@@ -1,9 +1,11 @@
-import React from 'react';
+import  React, { Component} from 'react';
 import {Card, CardActions, CardHeader, CardText, CardMedia} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
+import {observer} from 'mobx-react';
+
 
 const styles = {
     container: {
@@ -14,32 +16,41 @@ const styles = {
     },
 }
 
-const LoginCard = () => (
-    <div style={styles.container}>
+@observer(["authStore"])
+class LoginCard extends Component {
+  handleLoginChange(e){
+    this.props.authStore.login_username_change(e.target.value);
+  }
 
-      <Card style={{minWidth: 200, maxWidth: 400, paddingBottom: 36}}>
+  render(){
+    return (
+      <div style={styles.container}>
 
-        <CardHeader
-          title="Login"
-          subtitle="Welcome back"
-        />
-        <CardMedia style={{backgroundColor: '#ECEFF1', height: 60}}>
-        </CardMedia>
+        <Card style={{minWidth: 200, maxWidth: 400, paddingBottom: 36}}>
 
-          <div style={{display: 'block', margin: 'auto', width: '70%'}}>
-              <TextField fullWidth={true} floatingLabelText='username'/>
-              <TextField fullWidth={true} floatingLabelText="password" type="password"/>
-              <br />
-          </div>
+          <CardHeader
+            title="Login"
+            subtitle="Welcome back"
+          />
+          <CardMedia style={{backgroundColor: '#ECEFF1', height: 60}}>
+          </CardMedia>
 
-        <CardActions style={{paddingLeft: 60, paddingRight: 60}}>
-          <RaisedButton label="Submit" fullWidth={true} primary/>
-        </CardActions>
+            <div style={{display: 'block', margin: 'auto', width: '70%'}}>
+                <TextField fullWidth={true} floatingLabelText='username' onChange={this.handleLoginChange}/>
+                <TextField fullWidth={true} floatingLabelText="password" type="password"/>
+                <br />
+            </div>
 
-      </Card>
+          <CardActions style={{paddingLeft: 60, paddingRight: 60}}>
+            <RaisedButton label="Submit" fullWidth={true} primary/>
+          </CardActions>
 
-      <br />
-     </div>
-);
+        </Card>
 
-module.exports = LoginCard;
+        <br />
+       </div>
+    );
+  }
+};
+
+export default LoginCard;

@@ -1,4 +1,4 @@
-import Root from './containers/Root'
+import Root from './containers'
 import SignupForm from './containers/SignupForm'
 import LoginForm from './containers/LoginForm'
 import Home from './containers/Home'
