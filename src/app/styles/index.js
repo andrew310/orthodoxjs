@@ -1,5 +1,4 @@
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
 import {
   blueA200,
   blueGrey50,
@@ -15,3 +14,33 @@ import {
   white,
   fullBlack
   } from 'material-ui/styles/colors';
+
+  const muiTheme = getMuiTheme({
+    fontFamily: 'Roboto, sans-serif',
+
+    palette: {
+      primary1Color: blueA200,
+      primary2Color: cyan700,
+      primary3Color: grey400,
+      accent1Color: redA200,
+      accent2Color: grey100,
+      accent3Color: grey500,
+      textColor: blueGrey600,
+      alternateTextColor: white,
+      canvasColor: white,
+      borderColor: grey300,
+      pickerHeaderColor: cyan500,
+      shadowColor: fullBlack
+    },
+    appBar: {
+        color: white,
+        textColor: blueGrey600,
+        height: 40,
+        margin: 0
+    },
+    ListItem: {
+        iconLeft: {paddingBottom : 20}
+    }
+  });
+
+  export default muiTheme;
