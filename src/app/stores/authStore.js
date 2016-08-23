@@ -1,24 +1,22 @@
 // src/app/stores/authStore.js
 
-import { action, observable } from 'mobx';
+import { observable, action, autorun, transaction } from 'mobx';
 
 class AuthStore {
 
   // login form values
-  @observable login_username = '';
+  @observable login_username = 'BRO';
 
   @observable
   password = '';
 
-
-  login_username_change (value) {
-    this.login_username = value
-    console.log(value);
-  }
-
-  constructor(){}
+  @action
+  login_username_change = (value) => {
+      this.login_username = value;
+      console.log(value);
+    }
 
 }
 
-const authStore = new AuthStore;
-export default authStore;
+let store = new AuthStore;
+export default store;

@@ -1,54 +1,27 @@
 import React, { Component, cloneElement } from 'react';
+import { useStrict } from 'mobx';
+useStrict();
 import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { browserHistory } from 'react-router'
 import { Provider } from 'mobx-react';
-import { authStore } from '../stores/authStore';
+import AuthStore from '../stores/authStore';
 import muiTheme from '../styles';
 import NavBar from '../components/NavBar';
+import DevTools from 'mobx-react-devtools';
 
-class Main extends Component {
-
-  // set up binds and state
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      open: false
-    };
-  }
-
-  // use react router to change views
-  handleLoginButton() {
-    browserHistory.push('/login');
-  }
-
-  // user react router to change views
-  handleSignupButton() {
-    browserHistory.push('/signup');
-  }
-
-  // logo takes user to home page
-  handleLogoTouchTap() {
-    browserHistory.push('/');
-  }
-
-  render() {
-    const {props} = this
-    return (
-      <MuiThemeProvider muiTheme={muiTheme}>
-        <div >
-          <NavBar />
-            <Provider {...{ authStore }}>
-              {props.children}
-            </Provider>
-        </div>
-      </MuiThemeProvider>
-    );
-  }
+export default function Root({ children }) {
+  return (
+   <MuiThemeProvider muiTheme={muiTheme}>
+     <div >
+        <main role="main">
+         <NavBar />
+           <Provider {...{AuthStore}}>
+             {children}
+           </Provider>
+           <DevTools position={{ bottom: 0, right: 20 }} />
+         </main>
+     </div>
+   </MuiThemeProvider>
+  );
 }
-
-Main.contextTypes = {
-  router: React.PropTypes.object.isRequired
-};
-
-export default Main;

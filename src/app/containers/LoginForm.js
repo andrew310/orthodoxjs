@@ -16,10 +16,16 @@ const styles = {
     },
 }
 
-@observer(["authStore"])
+@observer(["AuthStore"])
 class LoginCard extends Component {
+    constructor(props){
+      super(props);
+      console.log(props)
+      this.handleLoginChange = this.handleLoginChange.bind(this);
+      this.store = this.props.AuthStore;
+    }
   handleLoginChange(e){
-    this.props.authStore.login_username_change(e.target.value);
+    this.store.login_username_change(e.target.value);
   }
 
   render(){
@@ -36,7 +42,7 @@ class LoginCard extends Component {
           </CardMedia>
 
             <div style={{display: 'block', margin: 'auto', width: '70%'}}>
-                <TextField fullWidth={true} floatingLabelText='username' onChange={this.handleLoginChange}/>
+                <TextField fullWidth={true} floatingLabelText='username' value={this.store.login_username} onChange={this.handleLoginChange}/>
                 <TextField fullWidth={true} floatingLabelText="password" type="password"/>
                 <br />
             </div>
