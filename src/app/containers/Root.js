@@ -1,26 +1,29 @@
 import React, {Component} from 'react';
-import {blueA200, blueGrey50, blueGrey600, blueGrey700, redA200} from 'material-ui/styles/colors';
-import {cyan500, cyan700, pinkA200, grey50, grey100, grey300, grey400, grey500, white, darkBlack, fullBlack} from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
-import Signup from './SignupForm'
 import { browserHistory } from 'react-router'
 import SvgIcon from 'material-ui/SvgIcon';
 import Logo from 'material-ui/svg-icons/device/brightness-low';
+import SmallMenu from '../components/SmallMenu';
+import {
+  blueA200,
+  blueGrey50,
+  blueGrey600,
+  blueGrey700,
+  redA200,
+  cyan500,
+  cyan700,
+  grey100,
+  grey300,
+  grey400,
+  grey500,
+  white,
+  fullBlack
+  } from 'material-ui/styles/colors';
 
-const styles = {
-  container: {
-    textAlign: 'center',
-    paddingTop: 200,
-  },
-  voting: {
-      paddingBottom: 5
-  }
-};
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -48,50 +51,65 @@ const muiTheme = getMuiTheme({
   }
 });
 
+const appBarShow = () => {
+
+}
+
 class Main extends Component {
+
+  // set up binds and state
   constructor(props, context) {
     super(props, context);
-
-    this.handleRequestClose = this.handleRequestClose.bind(this);
-    this.handleTouchTap = this.handleTouchTap.bind(this);
-    this.handleLoginButton = this.handleLoginButton.bind(this);
+    this.handleResize = this.handleResize.bind(this);
+    this.getWindow = this.getWindow.bind(this);
     this.state = {
       open: false,
+      windowWidth: window.innerWidth
     };
   }
 
-  handleRequestClose() {
-    this.setState({
-      open: false,
-    });
+  // add listeners
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
   }
 
-  handleTouchTap() {
-    this.setState({
-      open: true,
-    });
+  // keep track of window size so we can restyle AppBar
+  handleResize(e) {
+    this.setState({windowWidth: window.innerWidth});
   }
 
-   handleLoginButton() {
-      browserHistory.push('/login');
+  // use react router to change views
+  handleLoginButton() {
+    browserHistory.push('/login');
   }
+
+  // user react router to change views
   handleSignupButton() {
-      browserHistory.push('/signup');
+    browserHistory.push('/signup');
+  }
+
+  // whether to show buttons or small menu
+  getWindow() {
+      if(this.state.windowWidth > 600) {
+        return (
+        <div style={{paddingTop : '5px'}}>
+          <FlatButton onClick={this.handleLoginButton} label="sign in"/>
+          <FlatButton onClick={this.handleSignupButton} label="sign up"/>
+        </div>
+      );} else {
+        return(
+          <SmallMenu />
+        );
+      }
   }
 
   render() {
-    const standardActions = (
-      <FlatButton
-        label="Ok"
-        primary={true}
-        onTouchTap={this.handleRequestClose}
-      />
-    );
     const {props} = this
+    const getWindow = this.getWindow()
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <div>
-            <AppBar style={{ paddingTop: 5, backgroundColor : muiTheme.appBar.primary1Color}} onTitleTouchTap={this.handleTitleTouchTap}
+        <div >
+            <AppBar style={{ paddingTop: 5, paddingLeft: '10%', paddingRight: '10%', backgroundColor : muiTheme.appBar.primary1Color}} onTitleTouchTap={this.handleTitleTouchTap}
 
               iconElementLeft={
                 <div>
@@ -100,11 +118,11 @@ class Main extends Component {
               }
 
               iconElementRight={
-                <div style={{paddingTop : '5px'}}>
-                <FlatButton onClick={this.handleLoginButton} label="sign in"/>
-                <FlatButton onClick={this.handleSignupButton} label="sign up"/></div>
+                <div>
+                  {getWindow}
+                </div>
               }
-              
+
             />
             {props.children}
         </div>

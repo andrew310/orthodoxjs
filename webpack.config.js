@@ -24,6 +24,7 @@ module.exports = {
       {
         test: /\.js$/,
         loaders: ['babel-loader'],
+        presets: ['es-2016', 'react'],
         exclude: [nodeModulesPath],
       },
     ],
