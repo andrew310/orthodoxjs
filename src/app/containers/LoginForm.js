@@ -14,7 +14,7 @@ const styles = {
     },
 }
 
-const signupCard = () => (
+const LoginCard = () => (
     <div style={styles.container}>
 
       <Card style={{minWidth: 200, maxWidth: 400, paddingBottom: 36}}>
@@ -23,7 +23,7 @@ const signupCard = () => (
           title="Login"
           subtitle="Welcome back"
         />
-        <CardMedia style={{backgroundColor: 'grey', height: 60}}>
+        <CardMedia style={{backgroundColor: '#82B1FF', height: 60}}>
         </CardMedia>
 
           <div style={{display: 'block', margin: 'auto', width: '70%'}}>
@@ -42,4 +42,4 @@ const signupCard = () => (
      </div>
 );
 
-module.exports = signupCard;
+module.exports = LoginCard;

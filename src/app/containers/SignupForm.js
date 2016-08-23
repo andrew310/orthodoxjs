@@ -1,38 +1,45 @@
 import React from 'react';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardHeader, CardText, CardMedia} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import Paper from 'material-ui/Paper';
 
 const styles = {
     container: {
-      paddingTop: '5%',
-      marginLeft: '35%',
-      marginRight: '35%'
+      padding: '5%',
+      display: 'block',
+      margin: 'auto',
+      width: '40%'
     },
 }
 
-const signupCard = () => (
+const SignupCard = () => (
     <div style={styles.container}>
-      <Card style={{maxWidth : "400"}}>
+
+      <Card style={{minWidth: 200, maxWidth: 400, paddingBottom: 36}}>
+
         <CardHeader
           title="Create Account"
-          subtitle="Sign up and start curating the web"
+          subtitle="Start curating the web!"
         />
-        <div style={{padding: '2%'}}>
-            <TextField floatingLabelText='username'/>
-            <TextField
-              floatingLabelText="password"
-              type="password"
-            /><br />
-        </div>
-        <CardActions>
-          <RaisedButton label="Submit" primary/>
-          <FlatButton label="Cancel" />
-        </CardActions>
-      </Card>
-     </div>
+        <CardMedia style={{backgroundColor: '#82B1FF', height: 60}}>
+        </CardMedia>
 
+          <div style={{display: 'block', margin: 'auto', width: '70%'}}>
+              <TextField fullWidth={true} floatingLabelText='username'/>
+              <TextField fullWidth={true} floatingLabelText="password" type="password"/>
+              <br />
+          </div>
+
+        <CardActions style={{paddingLeft: 60, paddingRight: 60}}>
+          <RaisedButton label="Submit" fullWidth={true} primary/>
+        </CardActions>
+
+      </Card>
+
+      <br />
+     </div>
 );
 
-module.exports = signupCard;
+module.exports = SignupCard;
