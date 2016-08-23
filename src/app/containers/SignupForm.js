@@ -21,9 +21,9 @@ const SignupCard = () => (
 
         <CardHeader
           title="Create Account"
-          subtitle="Start curating the web!"
+          subtitle="Join us!"
         />
-        <CardMedia style={{backgroundColor: '#82B1FF', height: 60}}>
+        <CardMedia style={{backgroundColor: '#ECEFF1', height: 60}}>
         </CardMedia>
 
           <div style={{display: 'block', margin: 'auto', width: '70%'}}>
