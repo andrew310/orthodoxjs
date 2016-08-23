@@ -5,8 +5,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import { browserHistory } from 'react-router'
-import SvgIcon from 'material-ui/SvgIcon';
-import Logo from 'material-ui/svg-icons/device/brightness-low';
+import IconButton from 'material-ui/IconButton';
+import Logo from 'material-ui/svg-icons/image/crop-free';
 import SmallMenu from '../components/SmallMenu';
 import {
   blueA200,
@@ -26,6 +26,8 @@ import {
 
 
 const muiTheme = getMuiTheme({
+  fontFamily: 'Roboto, sans-serif',
+
   palette: {
     primary1Color: blueA200,
     primary2Color: cyan700,
@@ -88,6 +90,11 @@ class Main extends Component {
     browserHistory.push('/signup');
   }
 
+  // logo takes user to home page
+  handleLogoTouchTap() {
+    browserHistory.push('/');
+  }
+
   // whether to show buttons or small menu
   getWindow() {
       if(this.state.windowWidth > 600) {
@@ -110,11 +117,12 @@ class Main extends Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <div >
             <AppBar style={{ paddingTop: 5, paddingLeft: '10%', paddingRight: '10%', backgroundColor : muiTheme.appBar.primary1Color}} onTitleTouchTap={this.handleTitleTouchTap}
-
+              title={
+                <TextField style={{marginLeft: 50, bottom: 6}}
+                  hintText="Search"/>
+              }
               iconElementLeft={
-                <div>
-                <TextField style={{ position: 'relative', left: '5%'}} hintText="Search"/>
-                </div>
+                  <Logo style={{paddingTop: 10, cursor: 'pointer'}} hoverColor={blueA200} onClick={this.handleLogoTouchTap}/>
               }
 
               iconElementRight={
