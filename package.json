@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "babel-register": "^6.11.6",
+    "ejs": "^2.5.1",
     "express": "^4.14.0",
     "material-ui": "^0.15.0",
     "mobx": "^2.4.3",

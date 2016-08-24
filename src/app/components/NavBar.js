@@ -14,7 +14,7 @@ class NavBar extends React.Component {
     this.handleResize = this.handleResize.bind(this);
     this.getWindow = this.getWindow.bind(this);
     this.state = {
-      windowWidth: window.innerWidth
+      windowWidth: global.innerWidth
     };
   }
 
@@ -23,9 +23,13 @@ class NavBar extends React.Component {
     window.addEventListener('resize', this.handleResize);
   }
 
+  componentWillUnmount() {
+   window.removeEventListener('resize', this.handleResize);
+  }
+
   // keep track of window size so we can restyle AppBar
   handleResize(e) {
-    this.setState({windowWidth: window.innerWidth});
+    this.setState({windowWidth: global.innerWidth});
   }
 
   // use react router to change views
