@@ -22,10 +22,14 @@ class LoginCard extends Component {
       super(props);
       console.log(props)
       this.handleLoginChange = this.handleLoginChange.bind(this);
+      this.handlePasswordChange = this.handlePasswordChange.bind(this);
       this.store = this.props.AuthStore;
     }
   handleLoginChange(e){
     this.store.login_username_change(e.target.value);
+  }
+  handlePasswordChange(e){
+    this.store.login_password_change(e.target.value);
   }
 
   render(){
@@ -43,7 +47,7 @@ class LoginCard extends Component {
 
             <div style={{display: 'block', margin: 'auto', width: '70%'}}>
                 <TextField fullWidth={true} floatingLabelText='username' value={this.store.login_username} onChange={this.handleLoginChange}/>
-                <TextField fullWidth={true} floatingLabelText="password" type="password"/>
+                <TextField fullWidth={true} floatingLabelText="password" value={this.store.login_password} onChange={this.handlePasswordChange} type="password"/>
                 <br />
             </div>
 
