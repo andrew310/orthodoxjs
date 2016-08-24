@@ -1,7 +1,8 @@
-import Root from './containers'
-import SignupForm from './containers/SignupForm'
-import LoginForm from './containers/LoginForm'
-import Home from './containers/Home'
+import React from 'react';
+import Root from './containers';
+import SignupForm from './containers/SignupForm';
+import LoginForm from './containers/LoginForm';
+import Home from './containers/Home';
 
 const routes = {
   path: '/',

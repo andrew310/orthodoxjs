@@ -7,7 +7,7 @@
     "url": "https://github.com/andrew310/Express-React-Webpack.git"
   },
   "scripts": {
-    "start": "node ./server"
+    "start": "node ./src/server"
   },
   "private": true,
   "devDependencies": {
@@ -26,6 +26,7 @@
     "webpack-hot-middleware": "^2.12.2"
   },
   "dependencies": {
+    "babel-register": "^6.11.6",
     "express": "^4.14.0",
     "material-ui": "^0.15.0",
     "mobx": "^2.4.3",

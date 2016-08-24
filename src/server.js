@@ -1,11 +1,12 @@
-require('babel-core/register');
-
+require('babel-register');
 const path = require('path');
 const express = require('express');
 const webpack = require('webpack');
 const dev = require('webpack-dev-middleware');
 const hot = require('webpack-hot-middleware');
-const config = require('./webpack.config.js');
+const config = require('../webpack.config.js');
+import { renderToString } from 'react-dom/server';
+
 
 const port = process.env.PORT || 3000;
 const server = express();
@@ -49,7 +50,7 @@ server.use(express.static(path.resolve('./src/www/')));
 
 // send all requests to index, let reacr router sort them out
 server.get('*', (req, res) => {
-  res.sendFile(path.resolve('./src/www/index.html'));
+  res.sendFile(path.resolve('./www/index.html'));
 });
 
 // we are live!
