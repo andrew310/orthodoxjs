@@ -14,7 +14,7 @@ class NavBar extends React.Component {
     this.handleResize = this.handleResize.bind(this);
     this.getWindow = this.getWindow.bind(this);
     this.state = {
-      windowWidth: global.innerWidth
+      windowWidth: 1000
     };
   }
 

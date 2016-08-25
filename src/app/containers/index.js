@@ -9,10 +9,17 @@ import AuthStore from '../stores/authStore';
 import muiTheme from '../styles';
 import NavBar from '../components/NavBar';
 import DevTools from 'mobx-react-devtools';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+
+
 
 export default function Root({ children }) {
+  let theme = muiTheme;
+  let obj2 = {userAgent: navigator.useragent};
+  for (var attrname in obj2) {theme[attrname] = obj2[attrname]};
   return (
-   <MuiThemeProvider muiTheme={muiTheme}>
+   <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
      <div >
         <main role="main">
          <NavBar />

@@ -5,7 +5,7 @@ const webpack = require('webpack');
 const dev = require('webpack-dev-middleware');
 const hot = require('webpack-hot-middleware');
 const config = require('../webpack.config.js');
-
+var useragent = require('express-useragent');
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
@@ -15,7 +15,9 @@ import { routes } from './app/routes';
 const port = process.env.PORT || 3000;
 const server = express();
 
+
 server.set('view engine', 'ejs');
+server.use(useragent.express());
 
 global.__ENVIRONMENT__ = process.env.NODE_ENV || 'default';
 
@@ -61,6 +63,7 @@ server.use(express.static(path.resolve('./src/www/')));
 // });
 
 server.get('*', (req, res) => {
+  global.navigator = { userAgent: req.headers[ 'user-agent' ] }
   // routes is our object of React routes defined above
   match({ routes, location: req.url }, (err, redirectLocation, props) => {
     if (err) {
