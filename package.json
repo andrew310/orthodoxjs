@@ -7,7 +7,7 @@
     "url": "https://github.com/andrew310/Express-React-Webpack.git"
   },
   "scripts": {
-    "start": "node ./src/server"
+    "start": "node ./index"
   },
   "private": true,
   "devDependencies": {

@@ -1,24 +1,21 @@
-require('babel-register');
 const path = require('path');
 const express = require('express');
 const webpack = require('webpack');
 const dev = require('webpack-dev-middleware');
 const hot = require('webpack-hot-middleware');
 const config = require('../webpack.config.js');
-var useragent = require('express-useragent');
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
-
 import { routes } from './app/routes';
 
 const port = process.env.PORT || 3000;
 const server = express();
 
-
+// Using this to inject markup from react
 server.set('view engine', 'ejs');
-server.use(useragent.express());
 
+// Detect node environment
 global.__ENVIRONMENT__ = process.env.NODE_ENV || 'default';
 
 // Otherwise errors thrown in Promise routines will be silently swallowed.
@@ -31,11 +28,13 @@ process.on('unhandledRejection', (reason, p) => {
   }
 });
 
+// Intercept favicon requests
 server.get('/favicon.ico', function(req, res) {
   res.writeHead(200, { 'Content-Type': 'image/x-icon' });
   res.end();
 });
 
+// Use hot loading middleware
 if (!process.env.NODE_ENV) {
   const compiler = webpack(config);
 
@@ -53,41 +52,36 @@ if (!process.env.NODE_ENV) {
   server.use(hot(compiler));
 }
 
-// serve css
+// Serve css file
 server.use(express.static(path.resolve('./src/www/')));
-//server.get('*', require('./app').serverMiddleware);
 
-// server side rendering
+// Server side rendering
 server.get('*', (req, res) => {
+  // This is for material ui so that browser matches server render
   global.navigator = { userAgent: req.headers[ 'user-agent' ] }
-  // routes is our object of React routes defined above
+  // Shared components between client/server
   match({ routes, location: req.url }, (err, redirectLocation, props) => {
     if (err) {
-      // something went badly wrong, so 500 with a message
       res.status(500).send(err.message);
     } else if (redirectLocation) {
-      // we matched a ReactRouter redirect, so redirect from the server
+      // ReactRouter redirect match found, redirect from server
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (props) {
-      // if we got props, that means we found a valid component to render
-      // for the given route
+      // Component found for this path
       const markup = renderToString(<RouterContext {...props} />);
-
-      // render `index.ejs`, but pass in the markup we want it to display
+      // Render template and inject markup
       res.render('index', { markup })
 
     } else {
-      // no route match, so 404. In a real app you might render a custom
-      // 404 view here
       res.sendStatus(404);
     }
   });
 });
 
-// we are live!
+// We are live!
 server.listen(port, (err) => {
   if (err) {
     console.error(err);
   }
-  console.info('==> Listening on port %s. Open up http://localhost:%s/ in your browser.', port, port);
+  console.info('==> The magic happens on port %s!', port);
 });
