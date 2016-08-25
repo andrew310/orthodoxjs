@@ -57,11 +57,7 @@ if (!process.env.NODE_ENV) {
 server.use(express.static(path.resolve('./src/www/')));
 //server.get('*', require('./app').serverMiddleware);
 
-// send all requests to index, let reacr router sort them out
-// server.get('*', (req, res) => {
-//   res.sendFile(path.resolve('./www/index.html'));
-// });
-
+// server side rendering
 server.get('*', (req, res) => {
   global.navigator = { userAgent: req.headers[ 'user-agent' ] }
   // routes is our object of React routes defined above
