@@ -8,23 +8,31 @@ const Home = () => {
     return (
         <div >
 
-          <SideBar style={{position: 'absolute', top: '20px'}}/>
+          <SideBar style={{position: 'absolute', top: 20}}/>
 
           <div>
-            <ul style={{"list-style-type":"none"}}>
-              <li style={{maxWidth: "450"}}>
+            <ul style={{listStyleType: 'none'}}>
+              <li style={{maxWidth: 450}}>
               <Card zDepth={0}>
                 <CardHeader
-                  title="Without Avatar"
-                  subtitle="Subtitle"
+                  title="Express"
+                  subtitle="using express for server"
                 />
               </Card>
               </li>
-              <li style={{maxWidth: "450"}}>
+              <li style={{maxWidth: 450}}>
               <Card zDepth={0}>
                 <CardHeader
-                  title="Without Avatar"
-                  subtitle="Subtitle"
+                  title="React"
+                  subtitle="React components on front end"
+                />
+              </Card>
+              </li>
+              <li style={{maxWidth: 450}}>
+              <Card zDepth={0}>
+                <CardHeader
+                  title="Mobx"
+                  subtitle="State management with Mobx"
                 />
               </Card>
               </li>

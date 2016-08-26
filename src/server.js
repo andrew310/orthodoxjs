@@ -4,13 +4,10 @@ const webpack = require('webpack');
 const dev = require('webpack-dev-middleware');
 const hot = require('webpack-hot-middleware');
 const config = require('../webpack.config.js');
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-import { match, RouterContext } from 'react-router';
-import { routes } from './app/routes';
-
 const port = process.env.PORT || 3000;
 const server = express();
+import rndr from './app/render';
+
 
 // Using this to inject markup from react
 server.set('view engine', 'ejs');
@@ -56,27 +53,7 @@ if (!process.env.NODE_ENV) {
 server.use(express.static(path.resolve('./src/www/')));
 
 // Server side rendering
-server.get('*', (req, res) => {
-  // This is for material ui so that browser matches server render
-  global.navigator = { userAgent: req.headers[ 'user-agent' ] }
-  // Shared components between client/server
-  match({ routes, location: req.url }, (err, redirectLocation, props) => {
-    if (err) {
-      res.status(500).send(err.message);
-    } else if (redirectLocation) {
-      // ReactRouter redirect match found, redirect from server
-      res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-    } else if (props) {
-      // Component found for this path
-      const markup = renderToString(<RouterContext {...props} />);
-      // Render template and inject markup
-      res.render('index', { markup })
-
-    } else {
-      res.sendStatus(404);
-    }
-  });
-});
+server.get('*', rndr);
 
 // We are live!
 server.listen(port, (err) => {
