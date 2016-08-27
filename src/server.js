@@ -9,14 +9,13 @@ const server = express();
 import rndr from './app/render';
 
 
-// Using this to inject markup from react
+// quick way to inject our markup
 server.set('view engine', 'ejs');
 
-// Detect node environment
+// detect node environment
 global.__ENVIRONMENT__ = process.env.NODE_ENV || 'default';
 
-// Otherwise errors thrown in Promise routines will be silently swallowed.
-// (e.g. any error during rendering the app server-side!)
+// log errors with promise routines
 process.on('unhandledRejection', (reason, p) => {
   if (reason.stack) {
     console.error(reason.stack);

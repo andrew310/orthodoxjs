@@ -1,46 +1,39 @@
 import React from 'react';
-import Avatar from 'material-ui/Avatar';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import SideBar from '../components/SideBar';
+import Item from '../components/Item';
+import {observer} from 'mobx-react';
 
+@observer(["Items"])
+class Home extends React.Component {
+  constructor(props){
+    super(props);
+    this.renderItems = this.renderItems.bind(this);
+    this.store = this.props.Items;
+  }
 
-const Home = () => {
+  componentDidMount() {
+    this.store.getItems();
+  }
+
+  renderItems() {
+    if (this.store.items_fetched) {
+      return (<div>WHEEE</div>);
+    } else {
+      return (<div>sadface</div>);
+    }
+  }
+
+  render(){
+    const renderThis = this.renderItems();
     return (
         <div >
-
           <SideBar style={{position: 'absolute', top: 20}}/>
-
           <div>
-            <ul style={{listStyleType: 'none'}}>
-              <li style={{maxWidth: 450}}>
-              <Card zDepth={0}>
-                <CardHeader
-                  title="Express"
-                  subtitle="using express for server"
-                />
-              </Card>
-              </li>
-              <li style={{maxWidth: 450}}>
-              <Card zDepth={0}>
-                <CardHeader
-                  title="React"
-                  subtitle="React components on front end"
-                />
-              </Card>
-              </li>
-              <li style={{maxWidth: 450}}>
-              <Card zDepth={0}>
-                <CardHeader
-                  title="Mobx"
-                  subtitle="State management with Mobx"
-                />
-              </Card>
-              </li>
-            </ul>
+            {renderThis}
           </div>
-
         </div>
     );
+  }
 };
 
 

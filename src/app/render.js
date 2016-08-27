@@ -4,6 +4,7 @@ import { match, RouterContext } from 'react-router';
 import { routes } from './routes';
 import { Provider } from 'mobx-react';
 import AuthStore from './stores/authStore';
+import Items from './stores/items';
 
 
 export default (req, res) => {
@@ -20,11 +21,11 @@ export default (req, res) => {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (props) {
 
-      AuthStore.testme('bojack');
+      AuthStore.login_username_change('bojack');
 
       // Component found for this path
       const markup = renderToString(
-        <Provider {...{AuthStore}}>
+        <Provider {...{AuthStore, Items}}>
           <RouterContext {...props} />
         </Provider>
         );

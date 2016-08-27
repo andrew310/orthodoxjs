@@ -20,9 +20,6 @@ class AuthStore {
       this.login_password = value;
     }
 
-  testme(value) {
-    this.login_username = value;
-  }
 }
 
 let store = new AuthStore;
