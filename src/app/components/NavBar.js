@@ -65,7 +65,7 @@ class NavBar extends React.Component {
   render(){
     const getWindow = this.getWindow()
     return(
-      <AppBar style={{ paddingTop: 5, paddingLeft: '10%', paddingRight: '10%'}} onTitleTouchTap={this.handleTitleTouchTap}
+      <AppBar style={{ paddingTop: 5, paddingLeft: '10%', paddingRight: '10%'}} zDepth={0} onTitleTouchTap={this.handleTitleTouchTap}
         title={
           <TextField style={{marginLeft: 50, bottom: 6}}
             hintText="Search"/>
