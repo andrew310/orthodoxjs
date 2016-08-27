@@ -17,7 +17,7 @@ class Home extends React.Component {
 
   renderItems() {
     if (this.store.items_fetched) {
-      return (<div>WHEEE</div>);
+      return (<div>{this.store.items.name}</div>);
     } else {
       return (<div>sadface</div>);
     }

@@ -10,6 +10,9 @@ class Items {
   @observable
   items_fetched = false;
 
+  @observable
+  items = '';
+
   @action
   set_items_fetched = (val) => {
     if (val == true) {
@@ -25,7 +28,7 @@ class Items {
         return response.json();
       })
       .then(
-        (result) => this.set_items_fetched(true),
+        (result) => {this.set_items_fetched(true), this.items = result[0]},
         (error) => this.set_items_fetched(false)
       );
     }
