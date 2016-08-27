@@ -11,7 +11,17 @@ class Items {
   items_fetched = false;
 
   @observable
-  items = '';
+  items = [];
+
+  @action
+  add_item = (val) => {
+    this.items.push(val);
+  }
+
+  @action
+  get_items = () => {
+    return items;
+  }
 
   @action
   set_items_fetched = (val) => {
@@ -25,10 +35,10 @@ class Items {
   getItems = () => {
       return fetch('http://jsonplaceholder.typicode.com/comments')
       .then((response) => {
-        return response.json();
+        return response.json()
       })
       .then(
-        (result) => {this.set_items_fetched(true), this.items = result[0]},
+        (result) => {this.set_items_fetched(true); this.items = result},
         (error) => this.set_items_fetched(false)
       );
     }

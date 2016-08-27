@@ -2,6 +2,8 @@ import React from 'react';
 import SideBar from '../components/SideBar';
 import Item from '../components/Item';
 import {observer} from 'mobx-react';
+import Avatar from 'material-ui/Avatar';
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 
 @observer(["Items"])
 class Home extends React.Component {
@@ -17,7 +19,18 @@ class Home extends React.Component {
 
   renderItems() {
     if (this.store.items_fetched) {
-      return (<div>{this.store.items.name}</div>);
+      return (this.store.items.map( (comment) => {
+        return (
+          <li style={{maxWidth: 450}}>
+          <Card zDepth={1}>
+            <CardHeader
+              title={comment.name}
+              subtitle={comment.body}
+            />
+          </Card>
+          </li>
+        );
+      }));
     } else {
       return (<div>sadface</div>);
     }
@@ -29,7 +42,9 @@ class Home extends React.Component {
         <div >
           <SideBar style={{position: 'absolute', top: 20}}/>
           <div>
+            <ul style={{listStyleType: 'none'}}>
             {renderThis}
+            </ul>
           </div>
         </div>
     );

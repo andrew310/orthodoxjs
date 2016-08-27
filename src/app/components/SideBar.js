@@ -11,6 +11,7 @@ import Up from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import Down from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 
 const SideBar = () => {
+
   return(
     <div>
       <Card style={{display : 'inline-block', float : 'right', minWidth: 300}}>

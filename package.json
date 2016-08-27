@@ -28,6 +28,7 @@
   "dependencies": {
     "babel-register": "^6.11.6",
     "ejs": "^2.5.1",
+    "es6-promise": "^3.2.1",
     "express": "^4.14.0",
     "isomorphic-fetch": "^2.2.1",
     "material-ui": "^0.15.0",
