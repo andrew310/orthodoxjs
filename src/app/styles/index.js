@@ -17,7 +17,7 @@ import {
   } from 'material-ui/styles/colors';
 
 const muiTheme = getMuiTheme({
-  fontFamily: 'Roboto, sans-serif',
+  fontFamily: 'Open Sans, sans-serif',
   palette: {
     primary1Color: blueA200,
     primary2Color: cyan700,
