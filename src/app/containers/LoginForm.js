@@ -23,6 +23,7 @@ class LoginCard extends Component {
       console.log(props)
       this.handleLoginChange = this.handleLoginChange.bind(this);
       this.handlePasswordChange = this.handlePasswordChange.bind(this);
+      this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
       this.store = this.props.AuthStore;
     }
   handleLoginChange(e){
@@ -30,6 +31,9 @@ class LoginCard extends Component {
   }
   handlePasswordChange(e){
     this.store.login_password_change(e.target.value);
+  }
+  handleLoginSubmit(){
+    this.store.submit_login();
   }
 
   render(){
@@ -52,11 +56,11 @@ class LoginCard extends Component {
             </div>
 
           <CardActions style={{paddingLeft: 60, paddingRight: 60}}>
-            <RaisedButton label="Submit" fullWidth={true} primary/>
+            <RaisedButton label="Submit" fullWidth={true} onClick={this.store.handleLoginSubmit} primary/>
           </CardActions>
 
         </Card>
-
+          <div>{this.store.login_result} </div>
         <br />
        </div>
     );
