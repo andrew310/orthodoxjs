@@ -1,6 +1,8 @@
 // src/app/stores/authStore.js
 
 import { observable, action, autorun, transaction } from 'mobx';
+import TransportLayer from './TransportLayer';
+
 
 class AuthStore {
 
@@ -32,23 +34,20 @@ class AuthStore {
   login_password = '';
 
 
-  // reply from server
-  @observable
-  login_result = '';
-
   /*
    * ACTIONS
    */
 
    @action
    HANDLE_RESULT = (result) => {
-     console.log(result);
      if (result.token) {
        this.TOKEN = result.token;
      }
      else if (result.statusCode == 401) {
        this.ERROR_MSG = result.message;
      }
+
+     this.IS_FETCHING_LOGIN = false; // TODO: should I set this before comparing results?
    }
 
   // token set method
@@ -70,20 +69,8 @@ class AuthStore {
   // handler for logging in request
   @action
   submit_login = () => {
-    return fetch('YOUR LOGIN URI HERE', {
-      method: 'POST',
-      headers: {
-      'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
-      'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-      },
-      body: 'username=' + this.login_username + '&' + 'password=' + this.login_password })
-    .then((response) => {
-      return response.json();
-    })
-    .then(
-      (result) => this.HANDLE_RESULT(result),
-      (error) => this.set_items_fetched(false)
-    );
+    this.IS_FETCHING_LOGIN = true;
+    TransportLayer.SUBMIT_AUTH_FORM(this.login_username, this.login_password, 'http://138.68.49.15:8080/user/login', this.HANDLE_RESULT);
   }
 
 }
