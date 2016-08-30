@@ -4,6 +4,7 @@ import { match, RouterContext } from 'react-router';
 import { routes } from './routes';
 import { Provider } from 'mobx-react';
 import AuthStore from './stores/authStore';
+import SignupStore from './stores/SignupStore';
 import Items from './stores/items';
 
 
@@ -25,7 +26,7 @@ export default (req, res) => {
 
       // Component found for this path
       const markup = renderToString(
-        <Provider {...{AuthStore, Items}}>
+        <Provider {...{AuthStore, Items, SignupStore}}>
           <RouterContext {...props} />
         </Provider>
         );

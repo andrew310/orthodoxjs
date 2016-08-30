@@ -4,29 +4,34 @@ import { observable, action, autorun, transaction } from 'mobx';
 
 class AuthStore {
 
-  // login form values
+  // login form username
   @observable login_username = '';
 
+  // login form password
   @observable
   login_password = '';
 
+  // handler for textfield change (login username)
   @action
   login_username_change = (value) => {
       this.login_username = value;
     }
 
+  // handler for textfield change (login password)
   @action
   login_password_change = (value) => {
       this.login_password = value;
     }
 
+  // reply from server
   @observable
   login_result = '';
 
+  // handler for logging in request
   @action
   submit_login = () => {
     console.log(this.login_username)
-    return fetch('LOGIN URL HERE', {
+    return fetch('http://138.68.49.15:8080/user/login', {
       method: 'POST',
       body: JSON.stringify({
         username: this.login_username,
