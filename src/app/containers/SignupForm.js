@@ -5,14 +5,14 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import {observer} from 'mobx-react';
+import UserIcon from 'material-ui/svg-icons/action/account-circle';
 
 
 const styles = {
     container: {
       padding: '5%',
-      display: 'block',
-      margin: 'auto',
-      width: '40%'
+      display: 'table',
+      margin: '0 auto'
     },
 }
 
@@ -35,6 +35,17 @@ class SignupCard extends React.Component {
     handleSignupSubmit(){
       this.store.submit_signup();
     }
+
+    componentDidMount() {
+
+      // this fixes a bug where the password box was autofilling, but not showing it had a value
+      setTimeout(()=>{
+        if (this.refs.username.getValue()) {
+          this.refs.password.setState({...this.refs.password.state, hasValue: true})
+        }
+      }, 100)
+    }
+
   render(){
     return (
       <div style={styles.container}>
@@ -46,11 +57,12 @@ class SignupCard extends React.Component {
             subtitle="Join us!"
           />
           <CardMedia style={{backgroundColor: '#ECEFF1', height: 60}}>
+          <UserIcon style={{height: '60'}}/>
           </CardMedia>
 
           <div style={{display: 'block', margin: 'auto', width: '70%'}}>
-            <TextField fullWidth={true} floatingLabelText='username' value={this.store.signup_username} onChange={this.handleUsernameChange}/>
-            <TextField fullWidth={true} floatingLabelText="password" value={this.store.signup_password} onChange={this.handlePasswordChange} type="password"/>
+            <TextField fullWidth={true} inputStyle={{maxHeight: 50}} ref="username" floatingLabelText='username' value={this.store.signup_username} onChange={this.handleUsernameChange}/>
+            <TextField fullWidth={true} inputStyle={{maxHeight: 50}} ref="password" floatingLabelText="password" value={this.store.signup_password} onChange={this.handlePasswordChange} type="password"/>
             <br />
           </div>
 

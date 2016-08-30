@@ -22,8 +22,6 @@ export default (req, res) => {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (props) {
 
-      AuthStore.login_username_change('bojack');
-
       // Component found for this path
       const markup = renderToString(
         <Provider {...{AuthStore, Items, SignupStore}}>

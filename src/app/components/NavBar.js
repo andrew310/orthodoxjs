@@ -52,8 +52,8 @@ class NavBar extends React.Component {
       if(this.state.windowWidth > 600) {
         return (
         <div style={{paddingTop : '5px'}}>
-          <FlatButton onClick={this.handleLoginButton} label="sign in"/>
-          <FlatButton onClick={this.handleSignupButton} label="sign up"/>
+          <FlatButton onClick={this.handleLoginButton} label="sign in" primary/>
+          <FlatButton onClick={this.handleSignupButton} label="sign up" primary/>
         </div>
       );} else {
         return(
