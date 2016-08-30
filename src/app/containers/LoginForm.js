@@ -68,9 +68,31 @@ class LoginCard extends Component {
           </CardMedia>
 
             <div style={{display: 'block', margin: 'auto', width: '70%'}}>
-                <TextField inputStyle={{maxHeight: 50}} ref="username" fullWidth={true} floatingLabelText='username' value={this.store.login_username} onChange={this.handleLoginChange}/>
-                <TextField inputStyle={{maxHeight: 50}} ref="password" fullWidth={true} floatingLabelText="password" value={this.store.login_password} onChange={this.handlePasswordChange} type="password"/>
+
+                <TextField inputStyle={{maxHeight: 50}}
+                  ref="username"
+                  fullWidth={true}
+                  floatingLabelText='username'
+                  value={this.store.login_username}
+                  onChange={this.handleLoginChange}
+                />
+
+                <TextField inputStyle={{maxHeight: 50}}
+                ref="password"
+                errorText=      {(() => {
+                  if (this.store.ERROR_MSG) {
+                    return this.store.ERROR_MSG;
+                  }
+                  })()}
+                fullWidth={true}
+                floatingLabelText="password"
+                value={this.store.login_password}
+                onChange={this.handlePasswordChange}
+                type="password"
+                />
+
                 <br />
+
             </div>
 
           <CardActions style={{paddingLeft: 60, paddingRight: 60}}>
