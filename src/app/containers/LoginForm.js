@@ -74,7 +74,7 @@ class LoginCard extends Component {
             </div>
 
           <CardActions style={{paddingLeft: 60, paddingRight: 60}}>
-            <RaisedButton label="Submit" fullWidth={true} onClick={this.store.handleLoginSubmit} primary/>
+            <RaisedButton label="Submit" fullWidth={true} onClick={this.handleLoginSubmit} primary/>
           </CardActions>
 
         </Card>

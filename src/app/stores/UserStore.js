@@ -3,7 +3,7 @@ import { observable, action, computed } from 'mobx';
 import cookie from 'react-cookie';
 
 
-class TokenStore {
+class UserStore {
 
   @computed
   get token(){
@@ -16,5 +16,5 @@ class TokenStore {
   }
 }
 
-let store = new TokenStore;
+let store = new UserStore;
 export default store;

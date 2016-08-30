@@ -5,15 +5,15 @@ import { browserHistory, Router } from 'react-router'
 import { routes } from './routes';
 import { Provider } from 'mobx-react';
 import AuthStore from './stores/authStore';
-import SignupStore from './stores/signupStore';
+import SignupStore from './stores/SignupStore';
 import Items from './stores/items';
-import TokenStore from './stores/TokenStore';
+import UserStore from './stores/UserStore';
 
 // Needed for onTouchTap, see http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
 render(
-  <Provider {...{AuthStore, Items, SignupStore, TokenStore}}>
+  <Provider {...{AuthStore, Items, SignupStore, UserStore}}>
     <Router routes={routes} history={browserHistory}/>
   </Provider>,
     document.getElementById('app')
