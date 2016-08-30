@@ -6,7 +6,8 @@ import { Provider } from 'mobx-react';
 import AuthStore from './stores/authStore';
 import SignupStore from './stores/SignupStore';
 import Items from './stores/items';
-
+import TokenStore from './stores/TokenStore';
+import cookie from 'react-cookie';
 
 export default (req, res) => {
 
@@ -22,9 +23,11 @@ export default (req, res) => {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (props) {
 
+      cookie.save('userToken', "token here!", { path: '/' });
+
       // Component found for this path
       const markup = renderToString(
-        <Provider {...{AuthStore, Items, SignupStore}}>
+        <Provider {...{AuthStore, Items, SignupStore, TokenStore}}>
           <RouterContext {...props} />
         </Provider>
         );

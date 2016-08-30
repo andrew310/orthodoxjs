@@ -10,7 +10,10 @@ class TokenStore {
     return cookie.load('userToken');
   }
 
-  console.log(this.token())
+  @action
+  printToken(){
+    console.log(this.token);
+  }
 }
 
 let store = new TokenStore;
