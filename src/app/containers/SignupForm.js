@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import {observer} from 'mobx-react';
 import UserIcon from 'material-ui/svg-icons/action/account-circle';
+import { browserHistory } from 'react-router'
 
 
 const styles = {
@@ -16,35 +17,44 @@ const styles = {
     },
 }
 
-@observer(["SignupStore"])
+@observer(["SignupStore", "AuthStore"])
 class SignupCard extends React.Component {
-    constructor(props){
-      super(props);
+  constructor(props){
+    super(props);
 
-      this.handleUsernameChange = this.handleUsernameChange.bind(this);
-      this.handlePasswordChange = this.handlePasswordChange.bind(this);
-      this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
-      this.store = this.props.SignupStore;
-    }
-    handleUsernameChange(e){
-      this.store.signup_username_change(e.target.value);
-    }
-    handlePasswordChange(e){
-      this.store.signup_password_change(e.target.value);
-    }
-    handleSignupSubmit(){
-      this.store.submit_signup();
-    }
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
+    this.store = this.props.SignupStore;
+    this.authstore = this.props.AuthStore;
+  }
+  handleUsernameChange(e){
+    this.store.signup_username_change(e.target.value);
+  }
+  handlePasswordChange(e){
+    this.store.signup_password_change(e.target.value);
+  }
+  handleSignupSubmit(){
+    this.store.submit_signup();
+  }
 
-    componentDidMount() {
+  // check for autofill
+  componentDidMount() {
 
-      // this fixes a bug where the password box was autofilling, but not showing it had a value
-      setTimeout(()=>{
-        if (this.refs.username.getValue()) {
-          this.refs.password.setState({...this.refs.password.state, hasValue: true})
-        }
-      }, 100)
+    // this fixes a bug where the password box was autofilling, but not showing it had a value
+    setTimeout(()=>{
+      if (this.refs.username.getValue()) {
+        this.refs.password.setState({...this.refs.password.state, hasValue: true})
+      }
+    }, 100)
+  }
+
+  // if token is there, login was successful
+  componentDidUpdate() {
+    if (this.authstore.TOKEN) {
+      browserHistory.push('/');
     }
+  }
 
   render(){
     return (
@@ -57,12 +67,31 @@ class SignupCard extends React.Component {
             subtitle="Join us!"
           />
           <CardMedia style={{backgroundColor: '#ECEFF1', height: 60}}>
-          <UserIcon style={{height: '60'}}/>
+            <UserIcon style={{height: '60'}}/>
           </CardMedia>
 
           <div style={{display: 'block', margin: 'auto', width: '70%'}}>
-            <TextField fullWidth={true} inputStyle={{maxHeight: 50}} ref="username" floatingLabelText='username' value={this.store.signup_username} onChange={this.handleUsernameChange}/>
-            <TextField fullWidth={true} inputStyle={{maxHeight: 50}} ref="password" floatingLabelText="password" value={this.store.signup_password} onChange={this.handlePasswordChange} type="password"/>
+
+            <TextField fullWidth={true}
+              inputStyle={{maxHeight: 50}}
+              ref="username"
+              floatingLabelText='username'
+              value={this.store.signup_username}
+              onChange={this.handleUsernameChange}/>
+
+            <TextField fullWidth={true}
+              inputStyle={{maxHeight: 50}}
+              ref="password"
+              errorText={(() => {
+                if (this.authstore.ERROR_MSG) {
+                  return this.authstore.ERROR_MSG;
+                }
+                })()}
+              floatingLabelText="password"
+              value={this.store.signup_password}
+              onChange={this.handlePasswordChange}
+              type="password"/>
+
             <br />
           </div>
 

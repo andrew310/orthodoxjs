@@ -42,9 +42,13 @@ class AuthStore {
    HANDLE_RESULT = (result) => {
      if (result.token) {
        this.TOKEN = result.token;
+       this.login_username_change('');
+       this.login_password_change('');
      }
      else if (result.statusCode == 401) {
        this.ERROR_MSG = result.message;
+     } else {
+       this.ERROR_MSG = "Unknown error occured."
      }
 
      this.IS_FETCHING_LOGIN = false; // TODO: should I set this before comparing results?

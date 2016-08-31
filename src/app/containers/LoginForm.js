@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import {observer} from 'mobx-react';
 import UserIcon from 'material-ui/svg-icons/action/account-circle';
+import { browserHistory } from 'react-router'
 
 
 // center our form
@@ -53,6 +54,13 @@ class LoginCard extends Component {
     }, 100)
   }
 
+  // if token is there, login was successful
+  componentDidUpdate() {
+    if (this.store.TOKEN) {
+      browserHistory.push('/');
+    }
+  }
+
   render(){
     return (
       <div style={styles.container}>
@@ -79,7 +87,7 @@ class LoginCard extends Component {
 
                 <TextField inputStyle={{maxHeight: 50}}
                 ref="password"
-                errorText=      {(() => {
+                errorText={(() => {
                   if (this.store.ERROR_MSG) {
                     return this.store.ERROR_MSG;
                   }

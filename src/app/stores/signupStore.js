@@ -6,6 +6,7 @@ import TransportLayer from './TransportLayer';
 
 class SignupStore {
 
+
   /*
    * FORM RELATED
    */
@@ -18,6 +19,10 @@ class SignupStore {
   @observable
   signup_password = '';
 
+  /*
+   * ACTIONS
+   */
+
   // handler for textfield change (signup username)
   @action
   signup_username_change = (value) => {
@@ -27,34 +32,59 @@ class SignupStore {
   // handler for textfield change (signup password)
   @action
   signup_password_change = (value) => {
-      this.signup_password = value;
+    this.signup_password = value;
+  }
+
+  @action
+  HANDLE_RESULT = (result) => {
+    if (result.token) {
+      AuthStore.SET_TOKEN(result.token);
+
+      // clear previous state
+      this.signup_username_change('');
+      this.signup_password_change('');
+
+    }
+    else if (result.statusCode != 201) {
+      AuthStore.ERROR_MSG = result.message;
+    } else {
+      AuthStore.ERROR_MSG = "Unknown error occured.";
     }
 
-  // reply from server
-  @observable
-  signup_result = '';
+    AuthStore.IS_FETCHING_LOGIN = false; // TODO: should I set this before comparing results?
+  }
 
-  // handler for logging in request
+
+  // handler for signup request
   @action
   submit_signup = () => {
-    console.log(this.signup_username)
-    return fetch('YOUR CREATE URL HERE', {
-      method: 'POST',
-      headers: {
-      'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
-      'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-      },
-      body: 'username=' + this.signup_username + '&' + 'password=' + this.signup_password })
-    .then((response) => {
-      this.signup_result = response;
-      console.log(response);
-      //return response.json()
-    })
-    .then(
-      (result) => {console.log(result);},
-      (error) => this.set_items_fetched(false)
-    );
+    AuthStore.IS_FETCHING_LOGIN = true;
+    TransportLayer.SUBMIT_AUTH_FORM(this.signup_username, this.signup_password, 'http://138.68.49.15:8080/user', this.HANDLE_RESULT);
   }
+
+
+
+  // // handler for logging in request
+  // @action
+  // submit_signup = () => {
+  //   console.log(this.signup_username)
+  //   return fetch('YOUR CREATE URL HERE', {
+  //     method: 'POST',
+  //     headers: {
+  //     'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+  //     'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+  //     },
+  //     body: 'username=' + this.signup_username + '&' + 'password=' + this.signup_password })
+  //   .then((response) => {
+  //     this.signup_result = response;
+  //     console.log(response);
+  //     //return response.json()
+  //   })
+  //   .then(
+  //     (result) => {console.log(result);},
+  //     (error) => this.set_items_fetched(false)
+  //   );
+  // }
 
 }
 
