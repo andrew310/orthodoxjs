@@ -6,6 +6,7 @@ const hot = require('webpack-hot-middleware');
 const config = require('../webpack.config.js');
 const port = process.env.PORT || 3000;
 const server = express();
+const cookieParser = require('cookie-parser');
 import rndr from './app/render';
 
 
@@ -50,6 +51,8 @@ if (!process.env.NODE_ENV) {
 
 // Serve css file
 server.use(express.static(path.resolve('./src/www/')));
+
+server.use(cookieParser());
 
 // Server side rendering
 server.get('*', rndr);

@@ -40,6 +40,11 @@ class SignupCard extends React.Component {
 
   // check for autofill
   componentDidMount() {
+    
+    // are we already logged in?
+    if (this.authstore.TOKEN) {
+      browserHistory.push('/');
+    }
 
     // this fixes a bug where the password box was autofilling, but not showing it had a value
     setTimeout(()=>{
