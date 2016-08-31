@@ -6,6 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { browserHistory } from 'react-router'
 import muiTheme from '../styles';
 import NavBar from '../components/NavBar';
+import LoadingSnackBar from '../components/LoadingSnackBar';
 import DevTools from 'mobx-react-devtools';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
@@ -19,14 +20,15 @@ export default function Root({ children }) {
 
   // Return app wrapped in muitheme
   return (
-   <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
-     <div >
+    <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
+      <div >
         <main role="main">
-         <NavBar />
-             {children}
-           <DevTools position={{ bottom: 0, right: 20 }} />
-         </main>
-     </div>
-   </MuiThemeProvider>
+          <NavBar />
+          {children}
+          <LoadingSnackBar />
+          <DevTools position={{ bottom: 0, right: 20 }} />
+        </main>
+      </div>
+    </MuiThemeProvider>
   );
 }
