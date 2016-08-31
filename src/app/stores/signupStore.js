@@ -1,8 +1,14 @@
 // src/app/stores/signupStore.js
 
 import { observable, action, autorun, transaction } from 'mobx';
+import AuthStore from './AuthStore';
+import TransportLayer from './TransportLayer';
 
 class SignupStore {
+
+  /*
+   * FORM RELATED
+   */
 
   // signup form username
   @observable
