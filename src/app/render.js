@@ -25,9 +25,6 @@ export default (req, res) => {
 
       cookie.save('userToken', "token here!", { path: '/' });
 
-      cookie.plugToRequest(req, res);
-
-
       // Component found for this path
       const markup = renderToString(
         <Provider {...{AuthStore, Items, SignupStore, CookieStore}}>

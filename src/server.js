@@ -7,6 +7,7 @@ const config = require('../webpack.config.js');
 const port = process.env.PORT || 3000;
 const server = express();
 const cookieParser = require('cookie-parser');
+const cookie = require('react-cookie');
 import rndr from './app/render';
 
 
@@ -55,7 +56,7 @@ server.use(express.static(path.resolve('./src/www/')));
 server.use(cookieParser());
 
 // Server side rendering
-server.get('*', rndr);
+server.get('*', (req, res, next) => {cookie.plugToRequest(req, res); next();}, rndr);
 
 // We are live!
 server.listen(port, (err) => {
