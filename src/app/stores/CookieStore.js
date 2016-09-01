@@ -3,12 +3,13 @@ import { observable, action, computed } from 'mobx';
 import cookie from 'react-cookie';
 
 
-class UserStore {
+class CookieStore {
 
   @computed
   get token(){
     return cookie.load('userToken');
   }
+
 
   @action
   printToken(){
@@ -16,5 +17,5 @@ class UserStore {
   }
 }
 
-let store = new UserStore;
+let store = new CookieStore;
 export default store;

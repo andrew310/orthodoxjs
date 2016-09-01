@@ -5,11 +5,11 @@ import {observer} from 'mobx-react';
 import Avatar from 'material-ui/Avatar';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 
-@observer(["Items", "UserStore"])
+@observer(["Items", "CookieStore"])
 class Home extends React.Component {
   constructor(props){
     super(props);
-    const token = this.props.UserStore.printToken();
+    const token = this.props.CookieStore.printToken();
     this.renderItems = this.renderItems.bind(this);
     this.store = this.props.Items;
   }
