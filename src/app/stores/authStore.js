@@ -1,7 +1,8 @@
 // src/app/stores/authStore.js
 
-import { observable, action, autorun, transaction } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import TransportLayer from './TransportLayer';
+import cookie from 'react-cookie';
 
 
 class AuthStore {
@@ -11,7 +12,8 @@ class AuthStore {
    */
 
   // jwt stored here
-  @observable TOKEN = null;
+  @computed
+  get TOKEN() { return cookie.load('userToken'); }
 
   @observable IS_LOGGED_IN = false;
 
@@ -41,7 +43,7 @@ class AuthStore {
    @action
    HANDLE_RESULT = (result) => {
      if (result.token) {
-       this.TOKEN = result.token;
+       SET_TOKEN(result.token);
        this.login_username_change('');
        this.login_password_change('');
      }
@@ -56,7 +58,7 @@ class AuthStore {
 
   // token set method
   @action
-  SET_TOKEN = (token) => { this.TOKEN = token; console.log(this.TOKEN); }
+  SET_TOKEN = (token) => {cookie.save('userToken', token, { path: '/' });}
 
   // handler for textfield change (login username)
   @action
