@@ -53,7 +53,7 @@ class NavBar extends React.Component {
 
   // whether to show buttons or small menu
   getWindow() {
-      if(this.state.windowWidth > 600 && !this.auth.TOKEN) {
+      if(this.state.windowWidth > 600 && this.auth.IS_LOGGED_IN == false) {
         return (
         <div style={{paddingTop : '5px'}}>
           <FlatButton onClick={this.handleLoginButton} label="sign in" primary/>
