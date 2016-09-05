@@ -15,7 +15,7 @@ export default class SnackbarExampleSimple extends React.Component {
         <Snackbar
           open={this.store.IS_FETCHING_LOGIN}
           autoHideDuration={10000}
-          message={<center><CircularProgress size='.5' /></center>}
+          message={<center><CircularProgress size = {.5} /></center>}
         />
     );
   }
