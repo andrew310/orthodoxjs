@@ -3,10 +3,10 @@ import { observable, action, computed } from 'mobx';
 import cookie from 'react-cookie';
 
 
-class CookieStore {
+class ProfileStore {
 
   @computed
-  get token(){
+  get needFetch(){
     return cookie.load('userToken');
   }
 
@@ -17,5 +17,5 @@ class CookieStore {
   }
 }
 
-let store = new CookieStore;
+let store = new ProfileStore;
 export default store;

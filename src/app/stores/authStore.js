@@ -40,13 +40,6 @@ class AuthStore {
 
 
   /**
-   *
-   * ACTIONS
-   *
-   */
-
-
-  /**
    * Handle results from server request.
    *
    * @return: null, however calls method to save token in cookie.
@@ -86,14 +79,17 @@ class AuthStore {
     TransportLayer.SUBMIT_AUTH_FORM(this.login_username, this.login_password, 'http://138.68.49.15:8080/user/login', this.HANDLE_RESULT);
   }
 
-  // signing out
+  /**
+   * Remove token and set logged in state to false;
+   */
+
   @action
   signout = () => {
     this.REMOVE_TOKEN();
     this.IS_LOGGED_IN = false;
   }
 
-    // token set method
+  // token set method
   @action
   SET_TOKEN = (token) => { cookie.save('userToken', token, { path: '/' }); }
 
@@ -105,14 +101,14 @@ class AuthStore {
   // handler for textfield change (login username)
   @action
   login_username_change = (value) => {
-      this.login_username = value;
-    }
+    this.login_username = value;
+  }
 
   // handler for textfield change (login password)
   @action
   login_password_change = (value) => {
-      this.login_password = value;
-    }
+    this.login_password = value;
+  }
 }
 
 let store = new AuthStore;
