@@ -16,7 +16,7 @@ class AuthStore {
   @computed
   get TOKEN() { return cookie.load('userToken'); }
 
-  @observable IS_LOGGED_IN = false;
+  @observable IS_LOGGED_IN = this.TOKEN;
 
   @observable IS_FETCHING_LOGIN = false;
 
