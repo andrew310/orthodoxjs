@@ -5,7 +5,10 @@ import Logo from 'material-ui/svg-icons/image/crop-free';
 import SmallMenu from '../components/SmallMenu';
 import FlatButton from 'material-ui/FlatButton';
 import { browserHistory } from 'react-router'
+import {observer} from 'mobx-react';
 
+
+@observer(["AuthStore"])
 class NavBar extends React.Component {
 
   // set up binds and state
@@ -13,6 +16,7 @@ class NavBar extends React.Component {
     super(props, context);
     this.handleResize = this.handleResize.bind(this);
     this.getWindow = this.getWindow.bind(this);
+    this.auth = this.props.AuthStore;
     this.state = {
       windowWidth: 1000
     };
@@ -49,7 +53,7 @@ class NavBar extends React.Component {
 
   // whether to show buttons or small menu
   getWindow() {
-      if(this.state.windowWidth > 600) {
+      if(this.state.windowWidth > 600 && !this.auth.TOKEN) {
         return (
         <div style={{paddingTop : '5px'}}>
           <FlatButton onClick={this.handleLoginButton} label="sign in" primary/>

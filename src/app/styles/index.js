@@ -27,13 +27,13 @@ const muiTheme = getMuiTheme({
     accent3Color: grey500,
     textColor: blueGrey600,
     alternateTextColor: white,
-    canvasColor: white,
-    borderColor: grey300,
+    canvasColor: '#f8f8f8',
+    borderColor: '#e7e7e7',
     pickerHeaderColor: cyan500,
     shadowColor: fullBlack
   },
   appBar: {
-      color: white,
+      color:  '#f8f8f8',
       textColor: blueGrey600,
       height: 40,
       margin: 0

@@ -3,7 +3,7 @@
 import { observable, action, computed } from 'mobx';
 import TransportLayer from './TransportLayer';
 import cookie from 'react-cookie';
-
+import { browserHistory } from 'react-router'
 
 class AuthStore {
 
@@ -43,9 +43,11 @@ class AuthStore {
    @action
    HANDLE_RESULT = (result) => {
      if (result.token) {
-       SET_TOKEN(result.token);
+       this.SET_TOKEN(result.token);
        this.login_username_change('');
        this.login_password_change('');
+       browserHistory.push('/login');
+
      }
      else if (result.statusCode == 401) {
        this.ERROR_MSG = result.message;

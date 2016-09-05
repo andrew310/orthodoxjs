@@ -23,7 +23,8 @@ export default (req, res) => {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (props) {
 
-      cookie.save('userToken', "token here!", { path: '/' });
+      //cookie.save('userToken', "token here!", { path: '/' });
+      //cookie.remove('userToken', { path: '/'});
 
       // Component found for this path
       const markup = renderToString(
