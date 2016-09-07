@@ -14,6 +14,7 @@ It is easy to work with. The only tweak is I have it returning the token as well
 
 Basic fetch requests are working with Mobx and Isomorphic-Fetch. To see it, un-comment this line:
 >this.store.getItems()
+
 in /src/app/containers/Home.js. The only reason it is commented out is because there are 500 items being retrieved from JSON placeholder.
 
 Here are a couple screenshots:
