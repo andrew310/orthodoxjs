@@ -18,14 +18,12 @@ in /src/app/containers/Home.js. The only reason it is commented out is because t
 
 Here are a couple screenshots:
 
-![alt tag](http://i.imgur.com/er0bzzw.png)
+![alt tag](http://imgur.com/Aujez32.png)
 
 Signup Screen:
 
-![alt tag](http://imgur.com/a/Qo3hZ.png)
+![alt tag](http://imgur.com/r8mykTb.png)
 
 When you log in, it receives a JWT from the server and stores it in a cookie. I use Mobx to determine if there is a cookie stored, and hence if the user is login. It works quite nicely.
 
 Probably not as "minimal" as I originally intended, but having the login flow at least is a good starting point for future apps. Also, the MUI themer is set up already under /src/app/styles/index.js.
-
-Have fun!
