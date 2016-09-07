@@ -6,15 +6,20 @@ import cookie from 'react-cookie';
 class ProfileStore {
 
   @computed
-  get needFetch(){
-    return cookie.load('userToken');
+  get PROFILE(){
+    return cookie.load('user');
   }
-
 
   @action
-  printToken(){
-    console.log(this.token);
+  SET_USER(user){
+    cookie.save('user', user, {path: '/'});
   }
+
+  @action
+  CLEAR_USER(){
+    cookie.remove('user', {path: '/'});
+  }
+
 }
 
 let store = new ProfileStore;

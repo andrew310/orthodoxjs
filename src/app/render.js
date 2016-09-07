@@ -5,6 +5,7 @@ import { routes } from './routes';
 import { Provider } from 'mobx-react';
 import AuthStore from './stores/AuthStore';
 import SignupStore from './stores/SignupStore';
+import ProfileStore from './stores/ProfileStore';
 import Items from './stores/items';
 import cookie from 'react-cookie';
 
@@ -27,7 +28,7 @@ export default (req, res) => {
 
       // Component found for this path
       const markup = renderToString(
-        <Provider {...{AuthStore, Items, SignupStore}}>
+        <Provider {...{AuthStore, Items, SignupStore, ProfileStore}}>
           <RouterContext {...props} />
         </Provider>
         );

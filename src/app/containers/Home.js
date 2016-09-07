@@ -15,7 +15,7 @@ class Home extends React.Component {
 
   componentDidMount() {
     // turn this off while working on other stuff
-    //this.store.getItems();
+    this.store.getItems();
   }
 
   renderItems() {

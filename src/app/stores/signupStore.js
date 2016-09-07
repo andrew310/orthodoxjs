@@ -3,6 +3,7 @@
 import { observable, action, autorun, transaction } from 'mobx';
 import AuthStore from './AuthStore';
 import TransportLayer from './TransportLayer';
+import { browserHistory } from 'react-router'
 
 class SignupStore {
 
@@ -35,31 +36,11 @@ class SignupStore {
     this.signup_password = value;
   }
 
-  @action
-  HANDLE_RESULT = (result) => {
-    if (result.token) {
-      AuthStore.SET_TOKEN(result.token);
-
-      // clear previous state
-      this.signup_username_change('');
-      this.signup_password_change('');
-
-    }
-    else if (result.statusCode != 201) {
-      AuthStore.ERROR_MSG = result.message;
-    } else {
-      AuthStore.ERROR_MSG = "Unknown error occured.";
-    }
-
-    AuthStore.IS_FETCHING_LOGIN = false; // TODO: should I set this before comparing results?
-  }
-
-
   // handler for signup request
   @action
   submit_signup = () => {
     AuthStore.IS_FETCHING_LOGIN = true;
-    TransportLayer.SUBMIT_AUTH_FORM(this.signup_username, this.signup_password, 'http://138.68.49.15:8080/user', this.HANDLE_RESULT);
+    TransportLayer.SUBMIT_AUTH_FORM(this.signup_username, this.signup_password, 'http://138.68.49.15:8080/user', AuthStore.HANDLE_RESULT);
   }
 
 

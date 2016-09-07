@@ -2,6 +2,7 @@
 
 import { observable, action, computed } from 'mobx';
 import TransportLayer from './TransportLayer';
+import ProfileStore from './ProfileStore';
 import cookie from 'react-cookie';
 import { browserHistory } from 'react-router'
 
@@ -51,6 +52,7 @@ class AuthStore {
   HANDLE_RESULT = (result) => {
     if (result.token) {
       this.SET_TOKEN(result.token);
+      ProfileStore.SET_USER(result.user);
       this.login_username_change('');
       this.login_password_change('');
       this.IS_LOGGED_IN = true;
